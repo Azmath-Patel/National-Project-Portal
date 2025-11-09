@@ -1,10 +1,10 @@
-National Project Portal — Disaster Management Projects
+**National Project Portal — Disaster Management Projects**
 
-Overview: 
+**Overview:**
 The National Project Portal is a centralized web application designed to manage and showcase Disaster Management Projects across the nation. It aims to connect students, researchers, and government bodies by providing a platform to submit, review, and collaborate on innovative disaster management initiatives.
 
 
-Features:
+**Features:**
 🔹 Project Submission: Users can submit new disaster management projects with detailed information.
 🔹 Project Categorization: Projects are organized based on disaster type — Floods, Earthquakes, Cyclones, etc.
 🔹 Search & Filter: Quickly find projects using keywords, categories, or organizations.
@@ -13,7 +13,7 @@ Features:
 🔹 Responsive Design: Fully optimized for desktops, tablets, and mobile devices.
 
 
-Tech Stack:
+**Tech Stack:**
 Category	Technologies
 Frontend	HTML5, CSS3, JavaScript / ReactJS
 Backend	Node.js / Express.js
@@ -21,40 +21,47 @@ Database	MongoDB / MySQL
 Authentication	JWT / Session-based
 
 
-Installation & Setup
+**Installation & Setup:**
 
-Clone the repository:
+**Clone the repository:**
 git clone https://github.com/yourusername/national-project-portal.git
 
 
-Navigate to project directory:
+**Navigate to project directory:**
 cd national-project-portal
 
 
-Install dependencies:
+**Install dependencies:**
 npm install
 
 
-Set up environment variables:
-Create a .env file and add:
+**Set up environment variables:**
+**Create a .env file and add:**
 
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
 
 
-Run the application:
+**Run the application:**
 npm start
 
 
-Open in browser:
+**Open in browser:**
 http://localhost:5000
 
+**Future Enhancements:**
+✅ Integration with government project APIs.
+✅ Real-time disaster data visualization using maps.
+✅ Feedback and rating system for projects.
+✅ Role-based access for different users (students, admin, researchers).
+✅ Hosting the website on the AWS using Route53.
 
-Contributors:
-Azmath Patel — Developer
+
+**Developer:**
+Azmath Patel 
 
 
-Acknowledgements:
+**Acknowledgements:**
 This project was developed as part of the National Project Portal initiative for Disaster Management, aiming to support innovation and collaboration across institutions.
 
