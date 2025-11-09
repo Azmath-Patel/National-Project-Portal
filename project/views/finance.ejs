@@ -1,0 +1,142 @@
+<%- include('layout/header')%>
+
+<section id="finance">
+    <h2>Project Financing Overview</h2>
+
+    <div class="finance-container">
+        <p><strong>Overview:</strong> In India, project financing is crucial for achieving long-term sustainability in infrastructure, healthcare, education, and technology. Below are the details about ongoing, upcoming, and completed projects, their financing, and how funds are allocated to ensure successful project execution.</p>
+
+        <h3>Types of Projects and Key Funding Sources</h3>
+        <p>India's diverse needs in various sectors require tailored financing solutions. Here's an overview of the key project types and their funding sources:</p>
+        
+        <div class="projects-section">
+            <div class="project-category">
+                <h4>1. Infrastructure Projects</h4>
+                <p>Funding for infrastructure projects like highways, airports, and power plants typically involves a mix of government grants, PPPs, and commercial bank loans.</p>
+            </div>
+            <div class="project-category">
+                <h4>2. Social Welfare Projects</h4>
+                <p>Projects in healthcare, education, and rural development are often funded through government grants, CSR contributions, and foreign aid.</p>
+            </div>
+            <div class="project-category">
+                <h4>3. Innovation and Technology</h4>
+                <p>These projects are driven by private investments, venture capital, and government innovation funds. They focus on digital infrastructure, renewable energy, and smart city initiatives.</p>
+            </div>
+        </div>
+
+        <h3>Funding Process & Key Stakeholders</h3>
+        <p>Securing project financing involves a detailed process with several key stakeholders:</p>
+        <ol>
+            <li><strong>Feasibility Study & Proposal:</strong> Detailed analysis of the project's potential and viability. Involves project managers, consultants, and government agencies.</li>
+            <li><strong>Initial Funding:</strong> Government departments, private investors, and financial institutions allocate funds at the start of the project.</li>
+            <li><strong>Progress Monitoring:</strong> As the project progresses, funds are disbursed in phases based on milestones and government approvals.</li>
+            <li><strong>Final Evaluation:</strong> Upon project completion, financial assessments ensure that allocated funds are effectively utilized and not overspent.</li>
+        </ol>
+
+        <h3>Project Financing Examples</h3>
+        <p>Here are a few ongoing projects with their funding and financial status:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Project Name</th>
+                    <th>Total Budget (INR)</th>
+                    <th>Funding Source</th>
+                    <th>Allocated Funds (INR)</th>
+                    <th>Remaining Funds (INR)</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Project A: Enhancing National Cybersecurity Infrastructure</strong></td>
+                    <td>₹50 crore</td>
+                    <td>Government Grants + PPP</td>
+                    <td>₹30 crore</td>
+                    <td>₹20 crore</td>
+                    <td>In Progress</td>
+                </tr>
+                <tr>
+                    <td><strong>Project B: Development of a National Health Information System</strong></td>
+                    <td>₹100 crore</td>
+                    <td>Government Grants + CSR</td>
+                    <td>₹10 crore</td>
+                    <td>₹90 crore</td>
+                    <td>Planned</td>
+                </tr>
+                <tr>
+                    <td><strong>Project C: Build an E-Commerce Website for the IMA Market</strong></td>
+                    <td>₹200 crore</td>
+                    <td>Private Investments + Government Grants</td>
+                    <td>₹150 crore</td>
+                    <td>₹50 crore</td>
+                    <td>Completed</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Upcoming Projects</h3>
+        <p>Exciting projects are in the pipeline. Here's a sneak peek at the funding plans for some of India's upcoming initiatives:</p>
+        <ul>
+            <li><strong>Project D: National Highway Expansion</strong> – Estimated Budget: ₹500 crore, Funding Source: Government Grants + Bank Loans.</li>
+            <li><strong>Project E: Affordable Housing Initiative</strong> – Estimated Budget: ₹200 crore, Funding Source: PPP + CSR.</li>
+            <li><strong>Project F: Digital India (Next Phase)</strong> – Estimated Budget: ₹300 crore, Funding Source: Government Grants + Private Investments.</li>
+        </ul>
+
+        <h3>Challenges in Project Financing</h3>
+        <p>Although India has made significant strides in project financing, there are common challenges:</p>
+        <ul>
+            <li><strong>Delays in Approvals:</strong> Bureaucratic delays can impact project timelines and result in funding issues.</li>
+            <li><strong>Complex Funding Structures:</strong> The combination of multiple funding sources makes the allocation and monitoring process complex.</li>
+            <li><strong>Market Conditions:</strong> Economic fluctuations can impact private funding sources and investments.</li>
+            <li><strong>Political Influence:</strong> Changes in government policies and priorities can affect the project financing process.</li>
+        </ul>
+
+        <h3>Graphical Representation of Funds Allocation</h3>
+        <div class="funds-graph">
+            <canvas id="fundsChart" width="400" height="200"></canvas>
+        </div>
+
+        <h3>Notes:</h3>
+        <ul>
+            <li>All funding is subject to government and private approval and may change based on project requirements.</li>
+            <li>Public-private partnerships (PPP) and CSR funds are increasingly used for large-scale projects in India.</li>
+            <li>Political, economic, and market factors can influence project completion timelines and funding.</li>
+        </ul>
+
+        <p>If you're interested in learning more or contributing to a project, please <a href="/contact">contact us</a> for further details.</p>
+    </div>
+</section>
+
+<%- include('layout/footer')%>
+
+<!-- Include Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('fundsChart').getContext('2d');
+    var fundsChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Project A', 'Project B', 'Project C'],
+            datasets: [{
+                label: 'Allocated Funds (INR)',
+                data: [30, 10, 150],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Remaining Funds (INR)',
+                data: [20, 90, 50],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>

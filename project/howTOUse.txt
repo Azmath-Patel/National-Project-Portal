@@ -1,0 +1,14 @@
+first run the backend 
+    -cd backend
+    -download the libs using "pip install -r requirements.txt
+    -to run backend server "python manage.py runserver"
+    -for admin purpose use backend admin panel only ("https://127.0.0.1:8000/admin/)
+    -to add products use admin panel only (username=admin, password=admin)
+    -first add categories then add products
+    -while adding category becareful, for example your category name is "Category Three" then your category name should be "Category-Three". Use hypen(-) instead of space between words.Only for category name 
+    -while adding products becareful with "details" field, example data {"details": ["Pure silver", "Traditional design", "Handcrafted", "Authentic piece"]}, add as it is in details box of admin panel just change values inside []
+
+then run the frontend
+    -npm install
+    -npm run dev 
+

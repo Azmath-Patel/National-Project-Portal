@@ -1,0 +1,254 @@
+<%- include('layout/header')%>
+
+<section>
+    <div class>
+        <h2 class="page-title">Work On The Project And Collaborate</h2>
+
+        <!-- Table displaying projects -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Project Title</th>
+                    <th>Action</th>
+                    <th>Access Link</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <% if (projects.length > 0) { %>
+                    <% projects.forEach(project => { %>
+                        <tr>
+                            <td><%= project.project.title %></td>
+                            <td>
+                                <!-- Button to view the project details -->
+                                <button class="header-buttons" onclick="window.location.href='/projects/<%= project._id %>'">View Details</button>
+                            </td>
+                            <td>
+                                <!-- Button to access the Google Drive link -->
+                                <button class="header-buttons" onclick="window.location.href='<%= project.driveLink %>'">Access</button>
+
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5">No projects available.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<div class="tool-container">
+    <h1 class="my-4">Platform Tools Overview</h1>
+
+    <!-- Planning and Collaboration Tools -->
+    <div class="tool-section">
+        <h2>Planning and Collaboration Tools</h2>
+        <div class="tool-card">
+            <button onclick="window.open('https://www.atlassian.com/software/jira', '_blank')">Jira</button>
+            <p><strong>Description:</strong> Agile project management.<br><strong>Steps to Use:</strong> Sign up, create a project, and manage sprints.</p>
+        </div>
+
+
+        <div class="tool-card">
+            <button onclick="window.open('https://www.trello.com', '_blank')">Trello</button>
+            <p><strong>Description:</strong> Visual task management.<br><strong>Steps to Use:</strong> Create a board, add lists, and organize tasks using cards.</p>
+        </div>
+        <div class="tool-card">
+            <button onclick="window.open('https://www.asana.com', '_blank')">Asana</button>
+            <p><strong>Description:</strong> Task and workflow tracking.<br><strong>Steps to Use:</strong> Create tasks, assign them, and track progress.</p>
+        </div>
+        <div class="tool-card">
+            <button onclick="window.open('https://slack.com', '_blank')">Slack</button>
+            <p><strong>Description:</strong> Team communication.<br><strong>Steps to Use:</strong> Create a workspace, join channels, and start messaging.</p>
+        </div>
+        <div class="tool-card">
+            <button onclick="window.open('https://www.microsoft.com/en-us/microsoft-teams', '_blank')">Microsoft Teams</button>
+            <p><strong>Description:</strong> Collaboration and video conferencing.<br><strong>Steps to Use:</strong> Sign up, create a team, and start collaborating through chats and meetings.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://www.notion.so', '_blank')">Notion</button>
+            <p><strong>Description:</strong> All-in-one workspace for notes, tasks, and databases.<br><strong>Steps to Use:</strong> Create a workspace, add pages, and organize your workflow.</p>
+        </div>
+    </div>
+
+    <!-- Design Tools -->
+    <div class="tool-section">
+        <h2>Design Tools</h2>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://www.figma.com', '_blank')">Figma</button>
+            <p><strong>Description:</strong> UI/UX design and prototyping.<br><strong>Steps to Use:</strong> Create a file, design interfaces, and share prototypes.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://www.adobe.com/products/xd.html', '_blank')">Adobe XD</button>
+            <p><strong>Description:</strong> Design and prototyping.<br><strong>Steps to Use:</strong> Design screens, add interactions, and share prototypes.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://www.sketch.com', '_blank')">Sketch</button>
+            <p><strong>Description:</strong> Digital design for macOS.<br><strong>Steps to Use:</strong> Download Sketch, create designs, and export assets.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://www.invisionapp.com', '_blank')">InVision</button>
+            <p><strong>Description:</strong> Prototyping and collaboration.<br><strong>Steps to Use:</strong> Upload designs, add interactions, and share prototypes for feedback.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://www.canva.com', '_blank')">Canva</button>
+            <p><strong>Description:</strong> Graphic design for non-designers.<br><strong>Steps to Use:</strong> Sign up, choose a template, and create designs using drag-and-drop tools.</p>
+        </div>            
+    </div>
+
+    <!-- Frontend Development Tools -->
+    <div class="tool-section">
+        <h2>Frontend Development Tools</h2>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://reactjs.org', '_blank')">React.js</button>
+            <p><strong>Description:</strong> JavaScript library for building user interfaces.<br><strong>Steps to Use:</strong> Set up a React project, write components, and build UIs.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://vuejs.org', '_blank')">Vue.js</button>
+            <p><strong>Description:</strong> Progressive framework for UI development.<br><strong>Steps to Use:</strong> Create a Vue project, define components, and manage state effectively.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://getbootstrap.com', '_blank')">Bootstrap</button>
+            <p><strong>Description:</strong> CSS framework for responsive design.<br><strong>Steps to Use:</strong> Include Bootstrap, use classes, and style layouts.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://tailwindcss.com', '_blank')">Tailwind CSS</button>
+            <p><strong>Description:</strong> Utility-first CSS framework.<br><strong>Steps to Use:</strong> Add Tailwind to your project, use utility classes, and build custom designs.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://code.visualstudio.com', '_blank')">VS Code</button>
+            <p><strong>Description:</strong> Lightweight code editor.<br><strong>Steps to Use:</strong> Download VS Code, install extensions, and start coding.</p>
+        </div>    
+    </div>
+
+    <!-- Backend Development Tools -->
+    <div class="tool-section">
+        <h2>Backend Development Tools</h2>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://expressjs.com', '_blank')">Express.js</button>
+            <p><strong>Description:</strong> Node.js framework.<br><strong>Steps to Use:</strong> Install Express, define routes, and handle requests.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://spring.io/projects/spring-boot', '_blank')">Spring Boot</button>
+            <p><strong>Description:</strong> Java framework.<br><strong>Steps to Use:</strong> Set up a Spring Boot project, configure dependencies, and create RESTful APIs.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://laravel.com', '_blank')">Laravel</button>
+            <p><strong>Description:</strong> PHP framework.<br><strong>Steps to Use:</strong> Install Laravel, configure routes, and build web applications.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://www.mongodb.com', '_blank')">MongoDB</button>
+            <p><strong>Description:</strong> NoSQL database.<br><strong>Steps to Use:</strong> Set up a MongoDB instance, define collections, and perform CRUD operations.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://www.mysql.com', '_blank')">MySQL</button>
+            <p><strong>Description:</strong> Relational database.<br><strong>Steps to Use:</strong> Install MySQL, define schemas, and execute queries.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://www.postgresql.org', '_blank')">PostgreSQL</button>
+            <p><strong>Description:</strong> Relational database.<br><strong>Steps to Use:</strong> Install PostgreSQL, create databases, and execute queries.</p>
+        </div>        
+    </div>
+
+    <!-- APIs and Services -->
+    <div class="tool-section">
+        <h2>APIs and Services</h2>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://www.postman.com', '_blank')">Postman</button>
+            <p><strong>Description:</strong> API testing tool.<br><strong>Steps to Use:</strong> Create requests, send them, and view responses.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://cloud.google.com', '_blank')">Google Cloud API</button>
+            <p><strong>Description:</strong> Cloud services API.<br><strong>Steps to Use:</strong> Sign up, enable APIs, and use SDKs to integrate cloud services.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://firebase.google.com', '_blank')">Firebase</button>
+            <p><strong>Description:</strong> Backend-as-a-Service (BaaS).<br><strong>Steps to Use:</strong> Set up a project, integrate SDKs, and use features like Firestore.</p>
+        </div>
+    </div>
+
+    <!-- DevOps and Hosting Tools -->
+    <div class="tool-section">
+        <h2>DevOps and Hosting Tools</h2>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://github.com', '_blank')">GitHub</button>
+            <p><strong>Description:</strong> Version control and CI/CD.<br><strong>Steps to Use:</strong> Create repositories, manage branches, and deploy code.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://kubernetes.io', '_blank')">Kubernetes</button>
+            <p><strong>Description:</strong> Container orchestration.<br><strong>Steps to Use:</strong> Set up a Kubernetes cluster, deploy containers, and manage scaling.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://aws.amazon.com', '_blank')">AWS</button>
+            <p><strong>Description:</strong> Cloud hosting and services.<br><strong>Steps to Use:</strong> Choose a service, configure resources, and deploy apps.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://cloud.google.com', '_blank')">GCP</button>
+            <p><strong>Description:</strong> Google Cloud Platform services.<br><strong>Steps to Use:</strong> Create a project, configure APIs, and deploy applications.</p>
+        </div>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://azure.microsoft.com', '_blank')">Azure</button>
+            <p><strong>Description:</strong> Microsoft cloud services.<br><strong>Steps to Use:</strong> Sign up, choose a service, and deploy resources.</p>
+        </div>
+    </div>
+
+    <div class="tool-section">
+        <h2>Planning and Collaboration Tools</h2>
+
+        <div class="tool-card">
+            <button onclick="window.open('https://www.atlassian.com/software/jira', '_blank')">Jira</button>
+            <p><strong>Description:</strong> Agile project management.<br><strong>Steps to Use:</strong> Sign up, create a project, and manage sprints.</p>
+        </div>
+        <div class="tool-card">
+            <button onclick="window.open('https://www.trello.com', '_blank')">Trello</button>
+            <p><strong>Description:</strong> Visual task management.<br><strong>Steps to Use:</strong> Create a board, add lists, and organize tasks using cards.</p>
+        </div>
+        <div class="tool-card">
+            <button onclick="window.open('https://www.asana.com', '_blank')">Asana</button>
+            <p><strong>Description:</strong> Task and workflow tracking.<br><strong>Steps to Use:</strong> Create tasks, assign them, and track progress.</p>
+        </div>
+        <div class="tool-card">
+            <button onclick="window.open('https://slack.com', '_blank')">Slack</button>
+            <p><strong>Description:</strong> Team communication.<br><strong>Steps to Use:</strong> Create a workspace, join channels, and start messaging.</p>
+        </div>
+        <div class="tool-card">
+            <button onclick="window.open('https://www.microsoft.com/en-us/microsoft-teams', '_blank')">Microsoft Teams</button>
+            <p><strong>Description:</strong> Collaboration and video conferencing.<br><strong>Steps to Use:</strong> Sign up, create a team, and start collaborating through chats and meetings.</p>
+        </div>
+        <div class="tool-card">
+            <button onclick="window.open('https://www.notion.so', '_blank')">Notion</button>
+            <p><strong>Description:</strong> All-in-one workspace for notes, tasks, and databases.<br><strong>Steps to Use:</strong> Create a workspace, add pages, and organize your workflow.</p>
+        </div>
+    </div>
+</div>
+
+
+<%- include('layout/footer')%>

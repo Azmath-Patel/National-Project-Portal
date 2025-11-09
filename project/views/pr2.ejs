@@ -1,0 +1,190 @@
+<%- include('layout/header') %>
+
+<section id="project-details">
+    <div class="container">
+        <h2 class="page-title">Project Overview: Development of a National Health Information System</h2>
+
+        <!-- Candidate Details -->
+        <div class="card">
+            <h3>Candidate Details</h3>
+            <table>
+                <tr>
+                    <th>Name:</th>
+                    <td>Dr. Ravi Kumar</td>
+                </tr>
+                <tr>
+                    <th>Role:</th>
+                    <td>Project Lead</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Project Details -->
+        <div class="card">
+            <h3>Project Detail</h3>
+            <table>
+                <tr>
+                    <th>Project Title:</th>
+                    <td>Development of a National Health Information System</td>
+                </tr>
+                <tr>
+                    <th>Project Description:</th>
+                    <td>
+                        This project aims to create a comprehensive health information system to digitize and unify healthcare records across the nation. The system will facilitate seamless data exchange between hospitals, clinics, and government health departments, improving decision-making and ensuring better healthcare delivery.
+                        <br><br>
+                        Key features include patient record management, appointment scheduling, secure data sharing, and real-time analytics for epidemic tracking and healthcare planning.
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Steps of Project Development -->
+        <div class="card">
+            <h3>Steps of Project Development</h3>
+            <ul>
+                <li>Analyze existing healthcare data systems and identify gaps.</li>
+                <li>Engage stakeholders, including healthcare providers and IT professionals.</li>
+                <li>Design a scalable and secure architecture for the system.</li>
+                <li>Develop modules for patient records, data sharing, and analytics.</li>
+                <li>Integrate the system with existing healthcare facilities.</li>
+                <li>Conduct rigorous testing for data accuracy and security.</li>
+                <li>Roll out the system in phases for seamless adoption.</li>
+                <li>Provide training for healthcare professionals and IT staff.</li>
+            </ul>
+        </div>
+
+        <!-- Project Execution Steps -->
+        <div class="card">
+            <h3>Project Execution Steps</h3>
+            <ol>
+                <li>Define Project Objectives</li>
+                <li>Engage Key Stakeholders</li>
+                <li>Develop a Detailed Project Plan</li>
+                <li>Allocate Resources Efficiently</li>
+                <li>Execute Development Activities</li>
+                <li>Monitor and Optimize System Performance</li>
+                <li>Conduct Quality Assurance and Security Audits</li>
+                <li>Evaluate Outcomes Against Goals</li>
+                <li>Document Lessons Learned for Future Projects</li>
+            </ol>
+        </div>
+
+        <!-- Admin Project Creation Section -->
+        <div class="card">
+            <h3>Admin Project Creation Section</h3>
+            <p>The admin section will include tools to:</p>
+            <ul>
+                <li>Manage healthcare facility profiles</li>
+                <li>Oversee patient data and analytics</li>
+                <li>Monitor system performance and uptime</li>
+                <li>Track project milestones and progress</li>
+                <li>Generate reports for stakeholders and policymakers</li>
+            </ul>
+            <p>This section ensures effective management, secure data handling, and strategic insights for administrators.</p>
+        </div>
+
+        <!-- Project Budget Allocation and Progress Charts Section -->
+        <div class="section card chart-section">
+            <h3 class="section-heading">Project Overview: Budget & Progress</h3>
+            <div class="charts-container">
+                <div class="chart">
+                    <h4>Project Budget Allocation</h4>
+                    <canvas id="budgetChart"></canvas>
+                </div>
+                <div class="chart">
+                    <h4>Project Progress</h4>
+                    <canvas id="progressChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include('layout/footer') %>
+
+<!-- Include Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Project Budget Allocation Chart
+    var ctx1 = document.getElementById('budgetChart').getContext('2d');
+    var budgetChart = new Chart(ctx1, {
+        type: 'pie',
+        data: {
+            labels: ['Allocated Funds', 'Remaining Funds'],
+            datasets: [{
+                label: 'Project Budget Allocation',
+                data: [40, 60], // Example percentages
+                backgroundColor: ['#36A2EB', '#FF6384'],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ₹' + tooltipItem.raw.toLocaleString('en-IN');
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Project Progress Chart
+    var ctx2 = document.getElementById('progressChart').getContext('2d');
+    var progressChart = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['Analysis', 'Design', 'Development', 'Testing', 'Deployment'],
+            datasets: [{
+                label: 'Progress (%)',
+                data: [60, 50, 40, 30, 10], // Example progress data
+                backgroundColor: '#FFB6C1',
+                borderColor: '#FF6F61',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true, max: 100 }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return 'Progress: ' + tooltipItem.raw + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+<style>
+.card {
+    margin-bottom: 30px;
+}
+
+.charts-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.chart {
+    flex: 1;
+    max-width: 48%;
+}
+
+canvas {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 400px;
+}
+</style>

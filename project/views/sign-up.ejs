@@ -1,0 +1,155 @@
+<%- include('layout/header') %>
+
+<div class="login-container">
+   <h2>Sign Up</h2>
+   <form action="<%= signUpUrl %>" id="signUpForm" method="POST">
+       
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+       
+        <span id="emailError" style="color: red; display: none;">
+        Please enter a valid email address. It should include the following:
+        <ul id="emailChecklist">
+          <li><input type="checkbox" disabled checked> At least one letter or number before the '@'.</li>
+          <li><input type="checkbox" disabled checked> An '@' symbol separating the local part from the domain.</li>
+          <li><input type="checkbox" disabled checked> A valid domain name after the '@' (e.g., example.com).</li>
+          <li><input type="checkbox" disabled checked> The domain should include at least one period ('.').</li>
+        </ul>
+        </span>
+       
+        <div class="password-container">
+           <input type="password" id="password" name="password" placeholder="Password" required>
+           <span id="passwordEye" class="eye-icon" onclick="togglePassword('password')">👁️</span>
+       </div>
+       <span id="passwordError" style="color: red; display: none;">
+        Enter a valid password. It must meet the following criteria:
+        <ul id="passwordChecklist">
+          <li><input type="checkbox" disabled checked> 8 to 16 characters in length.</li>
+          <li><input type="checkbox" disabled checked> At least one uppercase letter.</li>
+          <li><input type="checkbox" disabled checked> At least one lowercase letter.</li>
+          <li><input type="checkbox" disabled checked> At least one number.</li>
+          <li><input type="checkbox" disabled checked> Can include special characters (e.g., @, $, %, !, etc.).</li>
+        </ul>
+      </span>
+
+       <div class="password-container">
+           <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirm Password" required>
+           <span id="confirmPasswordEye" class="eye-icon" onclick="togglePassword('confirm-password')">👁️</span>
+       </div>
+       <span id="confirmPasswordError" style="color: red; display: none;">Passwords do not match.</span>
+
+       <input type="submit" value="Sign Up">
+   </form>
+
+   <div class="login-link"> 
+       Already have an account? <a href="<%= actionUrl %>">Login here</a>
+   </div>
+</div>
+
+<%- include('layout/footer') %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('emailError');
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    const passwordInput = document.getElementById('password');
+    const passwordError = document.getElementById('passwordError');
+    const confirmPasswordInput = document.getElementById('confirm-password');
+    const confirmPasswordError = document.getElementById('confirmPasswordError');
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,16}$/;
+
+    
+    emailInput.addEventListener("input", () => {
+      if (emailRegex.test(emailInput.value)) {
+        emailError.style.display = "none"; 
+      } else {
+        emailError.style.display = "inline"; 
+      }
+    });
+
+    passwordInput.addEventListener("input", () => {
+      if (passwordRegex.test(passwordInput.value)) {
+        passwordError.style.display = "none"; 
+      } else {
+        passwordError.style.display = "inline"; 
+      }
+    });
+
+    confirmPasswordInput.addEventListener("input", () => {
+      if (confirmPasswordInput.value === passwordInput.value) {
+        confirmPasswordError.style.display = "none"; 
+      } else {
+        confirmPasswordError.style.display = "inline"; 
+      }
+    });
+
+    const form = document.getElementById('signUpForm');
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      let formIsValid = true;
+      const email = emailInput.value;
+      const password = passwordInput.value;
+      const confirmPassword = confirmPasswordInput.value;
+
+      if (!email || !emailRegex.test(email)) {
+        emailError.style.display = "inline";
+        formIsValid = false;
+      }
+
+      if (!password || !passwordRegex.test(password)) {
+        passwordError.style.display = "inline";
+        formIsValid = false;
+      }
+
+      if (confirmPassword !== password) {
+        confirmPasswordError.style.display = "inline";
+        formIsValid = false;
+      }
+
+      if (!formIsValid) {
+        return; 
+      }
+
+      try {
+        const response = await fetch('/sign-up', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alert('Sign-up successful! Redirecting to login...');
+          window.location.href = '/login'; 
+        } else {
+          alert(result.errors || 'Failed to sign up. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+      }
+    });
+  });
+
+  // Toggle password visibility for the specified field
+  function togglePassword(field) {
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirm-password');
+    const passwordEye = document.getElementById('passwordEye');
+    const confirmPasswordEye = document.getElementById('confirmPasswordEye');
+
+    if (field === 'password') {
+      const type = passwordInput.type === 'password' ? 'text' : 'password';
+      passwordInput.type = type;
+    } else if (field === 'confirm-password') {
+      const type = confirmPasswordInput.type === 'password' ? 'text' : 'password';
+      confirmPasswordInput.type = type;
+    }
+  }
+</script>
+
+
+  

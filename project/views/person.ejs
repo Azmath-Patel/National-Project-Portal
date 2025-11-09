@@ -1,0 +1,88 @@
+<%- include('layout/header') %>
+
+<div class="public-container">
+  <div class="public">
+      <form id="reliefForm" method="POST" action="<%= personUrl %>">
+          <h2>Personal Information</h2>
+          <label for="fullName">Full Name:</label>
+          <input type="text" id="fullName" name="fullName" placeholder="Enter full name" required>
+
+          <label for="age">Age:</label>
+          <input type="number" id="age" name="age" placeholder="Enter age" required min="1" max="150">
+
+          <label for="gender">Gender:</label>
+          
+          <div class="form-group">
+            
+            <input list="gender-options" id="gender" name="gender" placeholder="Select or enter gender" required class="form-input">
+            <datalist id="gender-options">
+                <option value="Male"></option>
+                <option value="Female"></option>
+                <option value="Other"></option>
+            </datalist>
+          </div>
+
+          <label for="contactNumber">Contact Number:</label>
+          <input type="tel" id="contactNumber" name="contactNumber" placeholder="Enter contact number" required pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number">
+
+          <label for="alternateContactNumber">Alternate Contact Number:</label>
+          <input type="tel" id="alternateContactNumber" name="alternateContactNumber" placeholder="Enter alternate contact number" required pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number">
+
+          <h2>Address and Location</h2>
+          <label for="permanentAddress">Permanent Address:</label>
+          <input type="text" id="permanentAddress" name="permanentAddress" placeholder="Enter permanent address" required>
+
+          <label for="currentLocation">Current Location:</label>
+          <input type="text" id="currentLocation" name="currentLocation" placeholder="Enter current location" required>
+
+          <label for="geoCoordinates">Geo-coordinates:</label>
+          <input type="text" id="geoCoordinates" name="geoCoordinates" placeholder="Enter geo-coordinates (if available)" pattern="^[-+]?[0-9]*\.?[0-9]+, [-+]?[0-9]*\.?[0-9]+$" title="Enter valid geo-coordinates (e.g., 37.7749, -122.4194)">
+
+          <h2>Health Information</h2>
+          <label for="medicalConditions">Medical Conditions:</label>
+          <input type="text" id="medicalConditions" name="medicalConditions" placeholder="Enter any medical conditions" required>
+
+          <label for="injuries">Injuries or Health Concerns:</label>
+          <input type="text" id="injuries" name="injuries" placeholder="Enter injuries or health concerns" required>
+
+          <label for="medicationNeeds">Medication Needs:</label>
+          <input type="text" id="medicationNeeds" name="medicationNeeds" placeholder="Enter any medication needs" required>
+
+          <h2>Family Details</h2>
+          <label for="numberOfFamilyMembers">Number of Family Members:</label>
+          <input type="number" id="numberOfFamilyMembers" name="numberOfFamilyMembers" placeholder="Enter number of family members" required min="1">
+
+          <label for="familyDetails">Details of Family Members (names, ages):</label>
+          <input type="text" id="familyDetails" name="familyDetails" placeholder="Enter family details" required>
+
+          <label for="missingFamilyDetails">Missing Family Members (details and description):</label>
+          <input type="text" id="missingFamilyDetails" name="missingFamilyDetails" placeholder="Enter details of missing family members" required>
+
+          <h2>Immediate Needs</h2>
+          <label for="foodRequirements">Food Requirements:</label>
+          <input type="text" id="foodRequirements" name="foodRequirements" placeholder="Enter food requirements (e.g., vegetarian, baby food)" required>
+
+          <label for="clothingSizes">Clothing Sizes:</label>
+          
+          <div class="form-group">
+            <input list="sizeOptions" id="clothingSizes" name="clothingSizes" placeholder="Select or Enter clothing size" required class="form-input">
+
+<datalist id="sizeOptions">
+    <option value="XS">
+    <option value="S">
+    <option value="M">
+    <option value="L">
+    <option value="XL">
+    <option value="XXL">
+    <option value="XXXL">
+</datalist>
+          </div>
+
+
+
+          <button class="ngo-button" type="submit">Submit</button>
+      </form>
+  </div>
+</div>
+
+<%- include('layout/footer') %>

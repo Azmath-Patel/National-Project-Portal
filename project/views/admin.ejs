@@ -1,0 +1,501 @@
+<%- include('layout/header')%>
+
+<section>
+<div class="container">
+    <h2>Create a New Project</h2>
+
+    <form action="/admin/create" id="createProjectForm" method="POST">
+        <div>
+            <label for="candidateName">Candidate Name:</label>
+            <input type="text" id="candidateName" name="candidateName" required />
+        </div>
+        <div>
+            <label for="candidateRole">Role:</label>
+            <input type="text" id="candidateRole" name="candidateRole" required />
+        </div>
+        <div>
+            <label for="projectTitle">Project Title:</label>
+            <input type="text" id="projectTitle" name="projectTitle" required />
+        </div>
+        <div>
+            <label for="projectDescription">Project Description:</label>
+            <textarea id="projectDescription" name="projectDescription" required></textarea>
+        </div>
+        <div>
+            <label for="driveLink">Google Drive Link :</label>
+            <input type="url" id="driveLink" name="driveLink" placeholder="https://drive.google.com/..." />
+        </div>
+        <button type="submit"  class="submit-button">Create Project</button>
+    </form>
+</div>
+</section>
+
+<section id="admin">
+    <h2>Users</h2>
+    <div class="admin-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% users.forEach(user => { %>
+                    <tr>
+                        <td><%= user.email %></td>
+                        <td><%= user.password %></td>
+                        <td>
+                            <button onclick="updateUser('<%= user._id %>')" class="icon-button">
+                                <i class="fas fa-pen"></i> Edit
+                            </button>
+
+                            <button onclick="deleteUser('<%= user._id %>')" class="icon-button">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section id="admin">
+    <h2>Subscribers</h2>
+    <div class="admin-container">
+        <table class="subscriber-table">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% subscribers.forEach(subscriber => { %>
+                    <tr>
+                        <td><%= subscriber.email %></td>
+                        <td>
+                            <button onclick="deleteSubscriber('<%= subscriber._id %>')" class="icon-button">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section>
+    <h2>People</h2>
+    <% people.forEach(person => { %>
+        <div class="info-table">
+            <table border="1">
+                <caption>Personal Information</caption>
+                <tr>
+                    <th>Field</th>
+                    <th>Details</th>
+                </tr>
+                <tr>
+                    <td>Full Name</td>
+                    <td><%= person.fullName %></td>
+                </tr>
+                <tr>
+                    <td>Age</td>
+                    <td><%= person.age %></td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td><%= person.gender %></td>
+                </tr>
+                <tr>
+                    <td>Contact Number</td>
+                    <td><%= person.contactNumber || 'N/A' %></td>
+                </tr>
+                <tr>
+                    <td>Alternate Contact Number</td>
+                    <td><%= person.alternateContactNumber || 'N/A' %></td>
+                </tr>
+            </table>
+
+            <table border="1">
+                <caption>Address and Location</caption>
+                <tr>
+                    <th>Field</th>
+                    <th>Details</th>
+                </tr>
+                <tr>
+                    <td>Permanent Address</td>
+                    <td><%= person.permanentAddress %></td>
+                </tr>
+                <tr>
+                    <td>Current Location</td>
+                    <td><%= person.currentLocation %></td>
+                </tr>
+                <tr>
+                    <td>Geo-coordinates</td>
+                    <td><%= person.geoCoordinates || 'N/A' %></td>
+                </tr>
+            </table>
+
+            <table border="1">
+                <caption>Health Information</caption>
+                <tr>
+                    <th>Field</th>
+                    <th>Details</th>
+                </tr>
+                <tr>
+                    <td>Medical Conditions</td>
+                    <td><%= person.medicalConditions || 'N/A' %></td>
+                </tr>
+                <tr>
+                    <td>Injuries or Health Concerns</td>
+                    <td><%= person.injuries || 'N/A' %></td>
+                </tr>
+                <tr>
+                    <td>Medication Needs</td>
+                    <td><%= person.medicationNeeds || 'N/A' %></td>
+                </tr>
+            </table>
+
+            <table border="1">
+                <caption>Family Details</caption>
+                <tr>
+                    <th>Field</th>
+                    <th>Details</th>
+                </tr>
+                <tr>
+                    <td>Number of Family Members</td>
+                    <td><%= person.numberOfFamilyMembers || 'N/A' %></td>
+                </tr>
+                <tr>
+                    <td>Family Members (names, ages)</td>
+                    <td><%= person.familyDetails || 'N/A' %></td>
+                </tr>
+                <tr>
+                    <td>Missing Family Members (details)</td>
+                    <td><%= person.missingFamilyDetails || 'N/A' %></td>
+                </tr>
+            </table>
+
+            <table border="1">
+                <caption>Immediate Needs</caption>
+                <tr>
+                    <th>Field</th>
+                    <th>Details</th>
+                </tr>
+                <tr>
+                    <td>Food Requirements</td>
+                    <td><%= person.foodRequirements || 'N/A' %></td>
+                </tr>
+                <tr>
+                    <td>Clothing Sizes</td>
+                    <td><%= person.clothingSizes || 'N/A' %></td>
+                </tr>
+            </table>
+             
+            <div>
+                <button onclick="openUpdateForm('<%= person._id %>')" class="icon-button">
+                    <i class="fas fa-pen"></i> Edit
+                </button>
+                <button onclick="deletePerson('<%= person._id %>')" class="icon-button">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </div>
+        </div>
+    <% }); %>
+
+<div id="updatePersonForm" style="display:none;">
+    <h2>Update Person</h2>
+    <form id="updateForm" onsubmit="event.preventDefault(); submitUpdateForm()">
+        <label for="updateFullName">Full Name:</label>
+        <input type="text" id="updateFullName" required>
+
+        <label for="updateAge">Age:</label>
+        <input type="number" id="updateAge" min="1" max="150" required>
+
+        <label for="updateGender">Gender:</label>
+
+        <div class="form-group">
+        <input list="updateGenderOptions" id="updateGender" required>
+        <datalist id="updateGenderOptions">
+            <option value="Male">
+            <option value="Female">
+            <option value="Other">
+        </datalist>
+        </div>
+        <!-- Add more fields as needed -->
+
+        <button type="submit" class="submit-button" style="margin-top:10px;">Save Changes</button>
+    </form>
+    <button class="submit-button" onclick="closeUpdateForm()" style="background-color:#f44336; color:white; margin-top:10px;">Cancel</button>
+</div>
+
+
+
+</section>
+
+<section id="admin">
+    <h2>Contact Messages</h2>
+    <div class="admin-container">
+        <table class="contact-table">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Received At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% contacts.forEach(contact => { %>
+                    <tr>
+                        <td><%= contact.email %></td>
+                        <td><%= contact.message %></td>
+                        <td><%= contact.createdAt.toLocaleString() %></td>
+                        <td>
+                            <button onclick="deleteContact('<%= contact._id %>')" class="icon-button">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+
+                            <button onclick="sendEmail('<%= contact.email %>', '<%= contact.phone %>')" class="icon-button">
+                                <i class="fas fa-envelope"></i> Mail
+                            </button>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section id="admin">
+    <h2>Candidates and Projects</h2>
+    <div class="admin-container">
+        <table class="project-table">
+            <thead>
+                <tr>
+                    <th>Candidate Name</th>
+                    <th>Role</th>
+                    <th>Project Title</th>
+                    <th>Project Description</th>
+                    <th>Google Drive Link</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% projects.forEach(project => { %>
+                    <tr>
+                        <td><%= project.candidate.name %></td>
+                        <td><%= project.candidate.role %></td>
+                        <td><%= project.project.title %></td>
+                        <td><%= project.project.description %></td>
+                        <td>
+                            <% if (project.driveLink) { %>
+                                <a href="<%= project.driveLink %>" target="_blank">View</a>
+                            <% } else { %>
+                                N/A
+                            <% } %>
+                        </td>
+                        <td>
+                            <button onclick="editProject('<%= project._id %>')" class="icon-button edit-button">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+
+                            <button onclick="deleteProject('<%= project._id %>')" class="icon-button delete-button">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="updateProjectForm" style="display:none;">
+        <h2>Update Project</h2>
+        <form id="updateForm" onsubmit="event.preventDefault(); submitUpdateForm()">
+            <label for="updateCandidateName">Candidate Name:</label>
+            <input type="text" id="updateCandidateName">
+    
+            <label for="updateRole">Role:</label>
+            <input type="text" id="updateRole">
+    
+            <label for="updateProjectTitle">Project Title:</label>
+            <input type="text" id="updateProjectTitle">
+    
+            <label for="updateProjectDescription">Project Description:</label>
+            <textarea id="updateProjectDescription"></textarea>
+    
+            <label for="updateDriveLink">Google Drive Link:</label>
+            <input type="url" id="updateDriveLink">
+    
+            <button type="submit" class="submit-button">Save Changes</button>
+        </form>
+        <button class="submit-button" onclick="closeUpdateForm()">Cancel</button>
+    </div>
+</section>
+
+<%- include('layout/footer')%>
+  
+<script>
+
+    function deleteProject(projectId) {
+    if (confirm("Are you sure you want to delete this project?")) {
+        fetch(`/admin/delete/${projectId}`, {
+            method: 'DELETE',
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Project deleted successfully.');
+                    location.reload();
+                } else {
+                    alert('Failed to delete the project.');
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting project:', error);
+            });
+    }
+}
+
+function editProject(projectId) {
+
+    fetch(`/admin/get/${projectId}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('updateCandidateName').value = data.candidate.name;
+            document.getElementById('updateRole').value = data.candidate.role;
+            document.getElementById('updateProjectTitle').value = data.project.title;
+            document.getElementById('updateProjectDescription').value = data.project.description;
+            document.getElementById('updateDriveLink').value = data.driveLink;
+
+            document.getElementById('updateProjectForm').style.display = 'block';
+            document.getElementById('updateForm').setAttribute('data-id', projectId);
+        })
+        .catch(error => console.error('Error fetching project:', error));
+}
+
+function submitUpdateForm() {
+    const projectId = document.getElementById('updateForm').getAttribute('data-id');
+    const updatedProject = {
+        candidateName: document.getElementById('updateCandidateName').value,
+        candidateRole: document.getElementById('updateRole').value,
+        projectTitle: document.getElementById('updateProjectTitle').value,
+        projectDescription: document.getElementById('updateProjectDescription').value,
+        driveLink: document.getElementById('updateDriveLink').value,
+    };
+
+    fetch(`/admin/edit/${projectId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedProject),
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Project updated successfully!');
+                window.location.reload();
+            } else {
+                alert('Error updating project.');
+            }
+        })
+        .catch(error => console.error('Error updating project:', error));
+}
+
+function closeUpdateForm() {
+    document.getElementById('updateProjectForm').style.display = 'none';
+}
+
+</script>
+
+<script>
+
+    function deletePerson(personId) {
+        if (confirm("Are you sure you want to delete this person?")) {
+            fetch(`/admin/delete-person/${personId}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    location.reload(); 
+                } else {
+                    alert(`Error: ${data.message}`);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("An error occurred while deleting the person.");
+            });
+        }
+    }
+
+    function openUpdateForm(personId) {
+        fetch(`/admin/get-person/${personId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch person data: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(person => {
+
+                document.getElementById('updatePersonForm').style.display = 'block';
+                document.getElementById('updateFullName').value = person.fullName || '';
+                document.getElementById('updateAge').value = person.age || '';
+                document.getElementById('updateGender').value = person.gender || '';
+
+                document.getElementById('updateForm').onsubmit = function(event) {
+                    event.preventDefault();
+                    submitUpdateForm(personId);
+                };
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("An error occurred while fetching the person's data.");
+            });
+    }
+
+    function closeUpdateForm() {
+        document.getElementById('updatePersonForm').style.display = 'none';
+    }
+
+    function submitUpdateForm(personId) {
+        const updatedData = {
+            fullName: document.getElementById('updateFullName').value,
+            age: document.getElementById('updateAge').value,
+            gender: document.getElementById('updateGender').value,
+        };
+
+        fetch(`/admin/update-person/${personId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedData),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to update person: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                location.reload(); 
+            } else {
+                alert(`Error: ${data.message}`);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("An error occurred while updating the person.");
+        });
+    }
+</script>

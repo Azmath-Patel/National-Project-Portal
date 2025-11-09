@@ -1,0 +1,27 @@
+<%- include('layout/header')%>
+
+<div class="role-container">
+    <h2>Welcome to National Project Portal</h2>
+    <p>Who are you?</p>
+    
+    <button class="header-buttons" onclick="promptForCode('<%= adminUrl %>')">Admin</button>   
+    <button class="header-buttons" id="itButton">IT Professional</button>
+    <button class="header-buttons" onclick="window.location.href='<%= personUrl %>'">Public User</button>
+    <div class="forgot-password">
+        <p><a href="<%= forgotPasswordUrl %>">Forgot Password?</a></p>
+    </div>
+    <div class="signup-link">
+        <p>Don't have an account? <a href="<%= signUpUrl %>">Sign up</a></p>
+    </div>
+    <div id="codeModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h4>Enter IT Professional Access Code</h4>
+          <input type="text" id="codeInput" placeholder="Enter code here" />
+          <button class="ngo-button" id="submitCodeButton">Submit</button>
+          <p id="errorMessage" style="color: red; display: none;">Incorrect code. Please try again.</p>
+        </div>
+    </div>
+</div>
+
+<%- include('layout/footer')%>

@@ -1,0 +1,191 @@
+<%- include('layout/header') %>
+
+<section id="project-details">
+    <div class="container">
+        <h2 class="page-title">Project Overview: Enhancing National Cybersecurity Infrastructure</h2>
+
+        <!-- Candidate Details -->
+        <div class="card">
+            <h3>Candidate Details</h3>
+            <table>
+                <tr>
+                    <th>Name:</th>
+                    <td>Rajesh Mehra</td>
+                </tr>
+                <tr>
+                    <th>Role:</th>
+                    <td>Cybersecurity Lead</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Project Details -->
+        <div class="card">
+            <h3>Project Detail</h3>
+            <table>
+                <tr>
+                    <th>Project Title:</th>
+                    <td>Enhancing National Cybersecurity Infrastructure</td>
+                </tr>
+                <tr>
+                    <th>Project Description:</th>
+                    <td>
+                        This project aims to strengthen the nation's cybersecurity framework to protect critical infrastructure and sensitive data from evolving cyber threats. It will involve developing secure systems, enhancing monitoring capabilities, and implementing robust response mechanisms to detect and mitigate cyberattacks effectively.
+                        <br><br>
+                        Key features include real-time threat intelligence, incident response automation, and public-private collaboration to ensure a resilient cybersecurity ecosystem.
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Steps of Project Development -->
+        <div class="card">
+            <h3>Steps of Project Development</h3>
+            <ul>
+                <li>Conduct a comprehensive risk assessment of existing infrastructure.</li>
+                <li>Engage stakeholders, including IT professionals and government agencies.</li>
+                <li>Develop and deploy advanced threat detection systems.</li>
+                <li>Train personnel in cybersecurity best practices.</li>
+                <li>Enhance public awareness about cybersecurity risks.</li>
+                <li>Test and refine response mechanisms through simulations.</li>
+                <li>Establish a cybersecurity operations center (CSOC).</li>
+                <li>Implement robust data protection policies.</li>
+            </ul>
+        </div>
+
+        <!-- Project Execution Steps -->
+        <div class="card">
+            <h3>Project Execution Steps</h3>
+            <ol>
+                <li>Define Project Objectives</li>
+                <li>Identify Key Cybersecurity Challenges</li>
+                <li>Develop a Comprehensive Security Plan</li>
+                <li>Allocate Resources for Implementation</li>
+                <li>Implement Cybersecurity Solutions</li>
+                <li>Monitor Systems for Threats and Vulnerabilities</li>
+                <li>Conduct Regular Security Audits</li>
+                <li>Evaluate Project Impact and Effectiveness</li>
+                <li>Document Lessons Learned for Future Improvements</li>
+            </ol>
+        </div>
+
+        <!-- Admin Project Creation Section -->
+        <div class="card">
+            <h3>Admin Project Creation Section</h3>
+            <p>The admin section will include features to:</p>
+            <ul>
+                <li>Monitor cybersecurity operations in real time.</li>
+                <li>Track incidents and generate detailed reports.</li>
+                <li>Analyze threat intelligence data for trends and patterns.</li>
+                <li>Manage resource allocation and policy updates.</li>
+                <li>Coordinate with stakeholders to ensure seamless execution.</li>
+            </ul>
+            <p>This section ensures comprehensive oversight, incident management, and strategic decision-making for cybersecurity initiatives.</p>
+        </div>
+
+        <!-- Project Budget Allocation and Progress Charts Section -->
+        <div class="section card chart-section">
+            <h3 class="section-heading">Project Overview: Budget & Progress</h3>
+            <div class="charts-container">
+                <div class="chart">
+                    <h4>Project Budget Allocation</h4>
+                    <canvas id="budgetChart"></canvas>
+                </div>
+                <div class="chart">
+                    <h4>Project Progress</h4>
+                    <canvas id="progressChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<%- include('layout/footer') %>
+
+<!-- Include Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Project Budget Allocation Chart
+    var ctx1 = document.getElementById('budgetChart').getContext('2d');
+    var budgetChart = new Chart(ctx1, {
+        type: 'pie',
+        data: {
+            labels: ['Allocated Funds', 'Remaining Funds'],
+            datasets: [{
+                label: 'Project Budget Allocation',
+                data: [50, 50], // Example percentages
+                backgroundColor: ['#36A2EB', '#FF6384'],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ₹' + tooltipItem.raw.toLocaleString('en-IN');
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Project Progress Chart
+    var ctx2 = document.getElementById('progressChart').getContext('2d');
+    var progressChart = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['Risk Assessment', 'Development', 'Training', 'Testing', 'Deployment'],
+            datasets: [{
+                label: 'Progress (%)',
+                data: [70, 60, 50, 30, 10], // Example progress data
+                backgroundColor: '#FFB6C1',
+                borderColor: '#FF6F61',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true, max: 100 }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return 'Progress: ' + tooltipItem.raw + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+<style>
+.card {
+    margin-bottom: 30px;
+}
+
+.charts-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.chart {
+    flex: 1;
+    max-width: 48%;
+}
+
+canvas {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 400px;
+}
+</style>

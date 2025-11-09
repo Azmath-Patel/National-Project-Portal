@@ -1,0 +1,367 @@
+<footer style="background: linear-gradient(45deg, #2d3e50,#7ed8da, #7a5981); color: #ffffff; padding: 20px 15px; text-align: center; font-family: 'Roboto', sans-serif; position: relative;">
+  <div style="max-width: 1200px; margin: 0 auto; position: relative; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; z-index: 1;">
+      
+      <div style="flex: 1; min-width: 300px; display: flex; flex-direction: column; align-items: flex-start;">
+          <p style="margin-bottom: 6px; font-size: 1.3em; font-weight: bold; color: #f1f1f1">Subscribe to our Newsletter</p>
+          <form id="newsletterForm" style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <input type="email" id="email" name="email" placeholder="Enter your email"
+                     style="padding: 8px; border: 2px solid #206e80;;; border-radius: 5px; width: 200px; max-width: 100%; outline: green;" required>
+              <button type="submit" style="background: #206e80;; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; transition: background 0.3s;">
+                  Subscribe
+              </button>
+          </form>
+      </div>
+
+      <div style="flex: 2; text-align: center; margin-bottom: 10px;">
+          <h2 style="font-size: 2em; font-weight: bold; margin-bottom: 10px; color: #191248; text-shadow: 2px 2px 4px rgba(240, 122, 122, 0.5);">NATIONAL PROJECTS PORTAL</h2>
+        <p style="font-size: 1.1em; font-weight: bold; color: #010101; text-shadow: 1px 1px 3px rgba(124, 113, 113, 0.3);">Empowering Innovations, Connecting Projects</p>
+        <p style="font-size: 0.8em; font-weight: bold; color: #206e80; text-shadow: 1px 1px 3px rgba(124, 113, 113, 0.3);">&copy; 2024 National Projects Portal. All rights reserved.</p>
+      </div>
+
+      <div style="flex: 1; min-width: 300px; display: flex; flex-direction: column; align-items: flex-end;">
+          <p style="font-size: 1.5em; margin-bottom: 0px; font-weight: bold; color:  #f1f1f1;">Follow us on</p>
+          <ul style="list-style: none; display: flex; justify-content: flex-end; gap: 15px; padding: 0; margin: 0; margin-top: 50px;">
+              <li><a href="#" target="_blank" style="color: #3b5998; font-size: 30px; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#3b5998'" onmouseout="this.style.color='#206e80';"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+              <li><a href="#" target="_blank" style="color: #1da1f2; font-size: 30px; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#1da1f2'" onmouseout="this.style.color='#206e80';"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+              <li><a href="#" target="_blank" style="color: #0077b5; font-size: 30px; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#0077b5'" onmouseout="this.style.color='#206e80';"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+              <li><a href="#" target="_blank" style="color: #e1306c;font-size: 30px; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#e1306c'" onmouseout="this.style.color='#206e80';"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+          </ul>
+      </div>
+
+  </div>
+
+  <div style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 0;">
+      <svg viewBox="0 0 1440 160" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#ffffff" fill-opacity="1" 
+                d="M0,128L40,112C80,96,160,64,240,53.3C320,43,400,53,480,64C560,75,640,85,720,64C800,43,880,21,960,26.7C1040,32,1120,64,1200,80C1280,96,1360,64,1400,48L1440,32L1440,160L1400,160C1360,160,1280,160,1200,160C1120,160,1040,160,960,160C880,160,800,160,720,160C640,160,560,160,480,160C400,160,320,160,240,160C160,160,80,160,40,160L0,160Z">
+          </path>
+      </svg>
+  </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/auth.js"></script>
+
+<script>
+  document.getElementById('newsletterForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+
+    try {
+      const response = await fetch('/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert('Thank you for subscribing!');
+      } else {
+        alert(result.message || 'Failed to subscribe. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred. Please try again.');
+    }
+  });
+
+</script>
+
+<script>
+  document.getElementById('loginForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  if (!email || !password) {
+    alert('Email and password are required');
+    return;
+  }
+  try {
+    const response = await fetch('/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      alert('Login successful! Redirecting...');
+      window.location.href = '/welcome'; 
+    } else {
+      alert(result.errors || 'Failed to login. Please check your credentials and try again.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('An error occurred. Please try again.');
+  }
+});
+
+</script>
+<script>
+  function promptForCode(adminUrl) {
+    const code = prompt('Please enter the admin code:');
+    if (code === 'yourSecretCode') {  // Replace with the actual code you want
+      window.location.href = adminUrl;
+    } else {
+      alert('Incorrect code. Access denied.');
+    }
+  }
+</script>
+<script>
+  document.getElementById('itButton').addEventListener('click', function() {
+document.getElementById('codeModal').style.display = "block";
+});
+
+var modal = document.getElementById('codeModal');
+var closeButton = document.getElementsByClassName('close')[0];
+
+closeButton.onclick = function() {
+modal.style.display = "none";
+};
+
+window.onclick = function(event) {
+if (event.target == modal) {
+  modal.style.display = "none";
+}
+};
+
+// Handle the code submission
+document.getElementById('submitCodeButton').addEventListener('click', function() {
+var code = document.getElementById('codeInput').value;
+const expectedCode = "IT123";  // Replace with your actual IT code
+
+if (code === expectedCode) {
+  // If the code is correct, redirect to the IT Professional page
+  window.location.href = '/it';  // Replace with your actual IT professional URL
+} else {
+  // If the code is incorrect, show an error message
+  document.getElementById('errorMessage').style.display = "block";
+}
+});
+
+
+  
+
+</script>
+<script>
+  document.getElementById('reliefForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const formData = {
+        fullName: document.getElementById('fullName').value,
+        age: document.getElementById('age').value,
+        gender: document.getElementById('gender').value,
+        contactNumber: document.getElementById('contactNumber').value,
+        alternateContactNumber: document.getElementById('alternateContactNumber').value,
+        permanentAddress: document.getElementById('permanentAddress').value,
+        currentLocation: document.getElementById('currentLocation').value,
+        geoCoordinates: document.getElementById('geoCoordinates').value,
+        medicalConditions: document.getElementById('medicalConditions').value,
+        injuries: document.getElementById('injuries').value,
+        medicationNeeds: document.getElementById('medicationNeeds').value,
+        numberOfFamilyMembers: document.getElementById('numberOfFamilyMembers').value,
+        familyDetails: document.getElementById('familyDetails').value,
+        missingFamilyDetails: document.getElementById('missingFamilyDetails').value,
+        foodRequirements: document.getElementById('foodRequirements').value,
+        clothingSizes: document.getElementById('clothingSizes').value
+    };
+
+    try {
+        const response = await fetch('<%= personUrl %>', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            alert('Form submitted successfully!  Redirecting...');
+            window.location.href = '/';  // Redirect to a success page or another page
+        } else {
+            alert(result.error || 'Failed to submit the form.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+    }
+});
+
+</script>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', async function (e) {
+    e.preventDefault(); // Prevent the form from submitting the default way
+
+    // Collect the form data
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+
+    // Check if email and message are provided
+    if (!email || !message) {
+      alert('Both email and message are required!');
+      return;
+    }
+
+    try {
+      const response = await fetch('<%= contactUrl %>', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, message })
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert('Message submitted successfully!');
+        // Optionally, reset the form or redirect user
+        document.getElementById('contactForm').reset();
+      } else {
+        alert(result.error || 'Failed to submit message.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred. Please try again.');
+    }
+  });
+</script>
+
+<script>
+  // Function to delete a user
+  function deleteUser(userId) {
+      if (confirm("Are you sure you want to delete this user?")) {
+          fetch(`/admin/delete-user/${userId}`, {
+              method: 'DELETE',
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                  alert("User deleted successfully!");
+                  location.reload(); // Reload the page to reflect changes
+              } else {
+                  alert("Failed to delete user.");
+              }
+          })
+          .catch(error => {
+              console.error("Error:", error);
+              alert("An error occurred while deleting the user.");
+          });
+      }
+  }
+
+  // Function to update a user
+  function updateUser(userId) {
+      const newEmail = prompt("Enter new email for the user:");
+      const newPassword = prompt("Enter new password for the user:");
+      
+      if (newEmail && newPassword) {
+          fetch(`/admin/update-user/${userId}`, {
+              method: 'PUT',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                  email: newEmail,
+                  password: newPassword
+              })
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                  alert("User updated successfully!");
+                  location.reload(); // Reload the page to reflect changes
+              } else {
+                  alert("Failed to update user.");
+              }
+          })
+          .catch(error => {
+              console.error("Error:", error);
+              alert("An error occurred while updating the user.");
+          });
+      }
+  }
+</script>
+
+<script>
+  function deleteSubscriber(subscriberId) {
+      if (confirm("Are you sure you want to delete this subscriber?")) {
+          fetch(`/admin/delete-subscriber/${subscriberId}`, {
+              method: 'DELETE',
+              headers: {
+                  'Content-Type': 'application/json',
+              }
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                  alert(data.message);
+                  location.reload(); // Refresh the page to update the list
+              } else {
+                  alert(data.message);
+              }
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              alert("An error occurred while deleting the subscriber.");
+          });
+      }
+  }
+</script>
+<script>
+  function deleteContact(contactId) {
+    if (confirm("Are you sure you want to delete this contact message?")) {
+        fetch(`/admin/contacts/${contactId}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Contact message deleted successfully.");
+                window.location.reload(); // Reload the page to update the table
+            } else {
+                alert("Failed to delete contact message. Please try again.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("An error occurred. Please try again.");
+        });
+    }
+}
+
+</script>
+<script>
+  function sendEmail(email, phone) {
+    if (confirm(`Send an email to ${email}?`)) {
+        fetch(`/admin/send-email`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, phone })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(`Email sent successfully to ${email}.`);
+            } else {
+                alert(`Failed to send email to ${email}. Please try again.`);
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("An error occurred. Please try again.");
+        });
+    }
+}
+
+</script>
+
+</body>
+</html>

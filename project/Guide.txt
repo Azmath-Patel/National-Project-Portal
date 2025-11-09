@@ -1,0 +1,7 @@
+ejs
+nodemailer       
+qrcode
+jsonwebtoken 
+mongoose     
+express 
+nodemon

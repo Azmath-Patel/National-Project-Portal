@@ -1,0 +1,186 @@
+<%- include('layout/header') %>
+
+<section id="project-details">
+    <div class="container">
+        <h2 class="page-title">Project Overview: E-Commerce Website for the IMA Market</h2>
+
+        <!-- Candidate Details -->
+        <div class="card">
+            <h3>Candidate Details</h3>
+            <table>
+                <tr>
+                    <th>Name:</th>
+                    <td>Aina Devi</td>
+                </tr>
+                <tr>
+                    <th>Role:</th>
+                    <td>Project Manager</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Project Details -->
+        <div class="card">
+            <h3>Project Detail</h3>
+            <table>
+                <tr>
+                    <th>Project Title:</th>
+                    <td>Build an E-Commerce Website for the IMA Market</td>
+                </tr>
+                <tr>
+                    <th>Project Description:</th>
+                    <td>
+                        This project involved developing a comprehensive e-commerce platform to empower the vendors of IMA Market, a famous market in Manipur, India. The platform enhances the online visibility of traditional handicrafts and organic products, allowing vendors to connect with a broader customer base across India and beyond.
+                        <br><br>
+                        Features included individual vendor profiles, a multilingual interface, a secure checkout system, and inventory management capabilities. This project aimed to digitize the operations of IMA Market and support the local economy.
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Key Features of the Website -->
+        <div class="card">
+            <h3>Key Features</h3>
+            <ul>
+                <li>Vendor Profiles: Personalized profiles for each vendor showcasing their products and story.</li>
+                <li>Secure Payment Gateway: Multiple payment options with end-to-end encryption for safe transactions.</li>
+                <li>Inventory Management: Easy tracking and management of stock for vendors.</li>
+                <li>Multilingual Support: Website available in multiple languages to cater to diverse audiences.</li>
+                <li>Customer Reviews and Ratings: Enhancing trust and user engagement.</li>
+            </ul>
+        </div>
+
+        <!-- Project Development Phases -->
+        <div class="card">
+            <h3>Project Development Phases</h3>
+            <ol>
+                <li>Requirement Gathering and Analysis</li>
+                <li>Designing the User Interface</li>
+                <li>Developing Core Functionalities</li>
+                <li>Integrating Secure Payment Systems</li>
+                <li>Testing for Functionality and Security</li>
+                <li>Launching the Platform</li>
+                <li>Providing Post-Launch Support</li>
+            </ol>
+        </div>
+
+        <!-- Admin Capabilities -->
+        <div class="card">
+            <h3>Admin Capabilities</h3>
+            <p>The admin panel for this project includes features to:</p>
+            <ul>
+                <li>Manage vendor registrations and profiles</li>
+                <li>Oversee product listings and categories</li>
+                <li>Track and resolve customer queries</li>
+                <li>Analyze sales data with interactive charts</li>
+                <li>Generate performance reports for vendors</li>
+            </ul>
+        </div>
+
+        <!-- Project Metrics Section -->
+        <div class="section card chart-section">
+            <h3 class="section-heading">Project Metrics: Budget & Performance</h3>
+            <div class="charts-container">
+                <div class="chart">
+                    <h4>Project Budget Allocation</h4>
+                    <canvas id="budgetChart"></canvas>
+                </div>
+                <div class="chart">
+                    <h4>Platform Performance</h4>
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include('layout/footer') %>
+
+<!-- Include Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Project Budget Allocation Chart
+    var ctx1 = document.getElementById('budgetChart').getContext('2d');
+    var budgetChart = new Chart(ctx1, {
+        type: 'pie',
+        data: {
+            labels: ['Development Cost', 'Marketing Cost', 'Miscellaneous Expenses'],
+            datasets: [{
+                label: 'Project Budget Allocation',
+                data: [60, 30, 10], // Example percentages
+                backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ₹' + tooltipItem.raw.toLocaleString('en-IN');
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Platform Performance Chart
+    var ctx2 = document.getElementById('performanceChart').getContext('2d');
+    var performanceChart = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['Vendors Registered', 'Products Listed', 'Total Transactions', 'Average Rating'],
+            datasets: [{
+                label: 'Performance Metrics',
+                data: [120, 800, 5000, 4.5], // Example data
+                backgroundColor: '#FFB6C1',
+                borderColor: '#FF6F61',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw;
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+<style>
+.card {
+    margin-bottom: 30px;
+}
+
+.charts-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.chart {
+    flex: 1;
+    max-width: 48%;
+}
+
+canvas {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 400px;
+}
+</style>
+
+

@@ -1,0 +1,162 @@
+<%- include('layout/header')%>
+
+  <main>
+
+    <section>
+      <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block w-100" src="/images/images1.jpeg" alt="First slide">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="/images/images2.jpeg" alt="Second slide">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="/images/images3.jpeg" alt="Third slide">
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </a>
+      </div>
+    </section>
+   
+    <section id="schemes">
+      <h2>Schemes</h2>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 scheme-item">
+            <img src="/images/Scheme 1 Home.png" alt="Scheme 1 Logo" class="scheme-logo">
+            <p class="housing-text">Housing for All</p>
+          </div>
+          <div class="col-md-4 scheme-item">
+            <img src="/images/Scheme 2 Education.png" alt="Scheme 2 Logo" class="scheme-logo">
+            <p class="housing-text"> Education for All</p>
+          </div>
+          <div class="col-md-4 scheme-item">
+            <img src="/images/Scheme 3 Health.png" alt="Scheme 3 Logo" class="scheme-logo">
+            <p class="housing-text"> Health for All</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ngo">
+      <h2>Disaster Relief NGOs</h2>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 ngo-item">
+            <img src="/images/ngo 1 red.png" alt="Red Cross Logo" class="ngo-logo">
+            <button class="ngo-button" onclick="window.open('https://www.redcross.org/', '_blank')">Red Cross</button>
+          </div>
+          <div class="col-md-4 ngo-item">
+            <img src="/images/ngo 2 sphere india.png" alt="Sphere India Logo" class="ngo-logo">
+            <button class="ngo-button" onclick="window.open('https://www.sphereindia.org.in/', '_blank')">Sphere India</button>
+          </div>
+          <div class="col-md-4 ngo-item">
+            <img src="/images/ngo 4 save the children.png" alt="Save the Children Logo" class="ngo-logo">
+            <button class="ngo-button" onclick="window.open('https://www.savethechildren.in/', '_blank')">Save the Children</button>
+          </div>
+          <div class="col-md-4 ngo-item">
+            <img src="/images/ngo 3 goonj.png" alt="Goonj Logo" class="ngo-logo">
+            <button class="ngo-button" onclick="window.open('https://goonj.org/', '_blank')">Goonj</button>
+          </div>
+          <div class="col-md-4 ngo-item">
+            <img src="/images/ngo 5 world vision.png" alt="World Vision Logo" class="ngo-logo">
+            <button class="ngo-button" onclick="window.open('https://www.worldvision.in/', '_blank')">World Vision India</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="it-resources">
+      <h2>Learning Resources for Engineers in Flood Relief</h2>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 resource-item">
+            <img src="/images/it 1 free code camp.png" alt="Programming Tutorials" class="resource-logo">
+            <button class="resource-button" onclick="window.open('https://www.freecodecamp.org/', '_blank')">freeCodeCamp - Programming Tutorials</button>
+          </div>
+          <div class="col-md-4 resource-item">
+            <img src="/images/it 2 mozilla.png" alt="Web Development Resource" class="resource-logo">
+            <button class="resource-button" onclick="window.open('https://developer.mozilla.org/en-US/docs/Web', '_blank')">MDN Web Docs - Web Development</button>
+          </div>
+          <div class="col-md-4 resource-item">
+            <img src="/images/it 3 coursera.png" alt="Cloud Computing Course" class="resource-logo">
+            <button class="resource-button" onclick="window.open('https://www.coursera.org/learn/cloud-computing-basics', '_blank')">Coursera - Cloud Computing Basics</button>
+          </div>
+          <div class="col-md-4 resource-item">
+            <img src="/images/it 4 khan academy.png" alt="Database Design Tutorials" class="resource-logo">
+            <button class="resource-button" onclick="window.open('https://www.khanacademy.org/computing/computer-programming/sql', '_blank')">Khan Academy - SQL Tutorials</button>
+          </div>
+          <div class="col-md-4 resource-item">
+            <img src="/images/it 5 arcgis.png" alt="Geospatial Learning Resource" class="resource-logo">
+            <button class="resource-button" onclick="window.open('https://learn.arcgis.com/en/', '_blank')">ESRI - Geospatial Learning</button>
+          </div>
+          <div class="col-md-4 resource-item">
+            <img src="/images/it 6 edx.png" alt="Weather Data Science Course" class="resource-logo">
+            <button class="resource-button" onclick="window.open('https://www.edx.org/course/data-science-for-weather-forecasting', '_blank')">edX - Weather Data Science</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="donation">
+      <h2 class="donation-title">Support Our Cause</h2>
+      <p class="donation-description">Your contribution helps us make a difference. Thank you for your generosity!</p>
+      <form action="<%= donationActionUrl %>" method="GET" class="donation-form">
+        <label for="donation-amount" class="donation-label">Donation Amount</label>
+        <div class="donation-input-container">
+          <input 
+            type="number" 
+            id="donation-amount" 
+            name="donationAmount" 
+            placeholder="Enter amount in INR" 
+            required 
+            min="1" 
+            class="donation-input"
+            onfocus="showPopularPlans()" 
+            onblur="hidePopularPlans()"
+          >
+          <div id="popular-plans" class="popular-plans">
+            <button type="button" onclick="setDonationAmount(200)">₹200</button>
+            <button type="button" onclick="setDonationAmount(500)">₹500</button>
+            <button type="button" onclick="setDonationAmount(1000)">₹1000</button>
+            <button type="button" onclick="setDonationAmount(5000)">₹5000</button>
+          </div>
+          <button type="submit" class="donate-btn">Donate Now</button>
+        </div>
+      </form>
+    </section>
+    
+    
+  </main> 
+
+  <%- include('layout/footer')%>
+
+<script>
+// Show popular plans when the input is focused
+function showPopularPlans() {
+  document.getElementById('popular-plans').style.display = 'block';
+}
+
+// Hide popular plans when the input loses focus
+function hidePopularPlans() {
+  setTimeout(() => {
+    document.getElementById('popular-plans').style.display = 'none';
+  }, 200); // Delay to allow button click
+}
+
+// Set donation amount when a plan is clicked
+function setDonationAmount(amount) {
+  document.getElementById('donation-amount').value = amount;
+  document.getElementById('donation-amount').focus(); // Ensure focus returns to the input
+  hidePopularPlans();
+}
+
+</script>

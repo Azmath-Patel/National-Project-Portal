@@ -1,0 +1,81 @@
+<%- include('layout/header')%>
+
+<section id="projects">
+    <h2>Critical National Projects</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Project Name</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Contributors</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Project A</td>
+                <td>Enhancing national cybersecurity infrastructure.</td>
+                <td>In Progress</td>
+                <td>IT Professionals, Government</td>
+                <td><button class="header-buttons" onclick="window.location.href='/pr3'">View Details</button></td>  
+            </tr>
+            <tr>
+                <td>Project B</td>
+                <td>Development of a national health information system.</td>
+                <td>Planned</td>
+                <td>IT Professionals, Healthcare Providers</td>
+                <td><button class="header-buttons" onclick="window.location.href='/pr2'">View Details</button></td>  
+            </tr>
+            <tr>
+              <td>Project C</td>
+              <td>Build an e commerce website for the IMA market</td>
+              <td>Compleated</td>
+              <td>IT Professionals</td>
+              <td><button class="header-buttons" onclick="window.location.href='/pr1'">View Details</button></td>  
+
+          </tr>
+        </tbody>
+    </table>
+
+    <div class>
+        <h2 class="page-title">Projects Needing Further Development</h2>
+        
+        <!-- Display the count of projects -->
+        <p class="project-count">Total Projects Available: <%= projectCount %></p>
+
+        <!-- Table displaying projects -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Project Title</th>
+                    <th>Candidate Name</th>
+                    <th>Candidate Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (projects.length > 0) { %>
+                    <% projects.forEach(project => { %>
+                        <tr>
+                            <td><%= project.project.title %></td>
+                            <td><%= project.candidate.name %></td>
+                            <td><%= project.candidate.role %></td>
+                            <td>
+                                <!-- Button to view the project details -->
+                                <button class="header-buttons" onclick="window.location.href='/projects/<%= project._id %>'">View Details</button>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5">No projects available.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+    
+</section>
+
+<%- include('layout/footer')%>

@@ -1,0 +1,19 @@
+<%- include('layout/header')%>
+
+<div class="login-container">
+   <h2><%= heading %></h2>
+   <form action="<%= actionUrl %>" id="loginForm" method="POST">
+       <input type="email" name="email" id="email" placeholder="Email" required autocomplete="email">
+       <input type="password" name="password" id="password" placeholder="Password" required autocomplete="current-password">
+       <input type="submit" value="Log In">
+   </form>
+   <div class="forgot-password">
+       <p><a href="<%= forgotPasswordUrl %>">Forgot Password?</a></p>
+   </div>
+   
+   <div class="signup-link">
+       <p>Don't have an account? <a href="<%= signUpUrl %>">Sign Up</a></p>
+   </div>
+</div>
+
+<%- include('layout/footer')%>

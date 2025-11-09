@@ -1,0 +1,51 @@
+<%- include('layout/header') %>
+
+<section>
+    <div class="container">
+        <h2 class="page-title">All Projects</h2>
+    
+        <% if (projects.length > 0) { %>
+            <% projects.forEach(project => { %>
+                <div class="card">
+                    <h2 class="page-title">Project Title: <%= project.project.title %></h2>
+    
+                    <!-- Candidate Details -->
+                    <div class="card">
+                        <h3>Candidate Details</h3>
+                        <table>
+                            <tr>
+                                <th>Name:</th>
+                                <td><%= project.candidate.name %></td>
+                            </tr>
+                            <tr>
+                                <th>Role:</th>
+                                <td><%= project.candidate.role %></td>
+                            </tr>
+                        </table>
+                    </div>
+    
+                    <!-- Project Details -->
+                    <div class="card">
+                        <h3>Project Detail</h3>
+                        <table>
+                            <tr>
+                                <th>Project Title:</th>
+                                <td><%= project.project.title %></td>
+                            </tr>
+                            <tr>
+                                <th>Project Description:</th>
+                                <td>
+                                    <%= project.project.description %>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>No projects available.</p>
+        <% } %>
+    </div>
+</section>
+
+<%- include('layout/footer') %>

@@ -1,0 +1,446 @@
+<%- include('layout/header')%>
+
+  <div class="login-container">
+    <section id="payment">
+      <h2>Payment Options</h2>
+      <p>Donation Amount: ₹<%= donationAmount %></p>
+
+      <button type="button" class="formbutton" onclick="showQRCode()">Scan and Pay (UPI)</button>
+      <div id="qr-code" class="qr-code-container">
+        <img src="<%= qrCodeUrl %>" alt="Scan and Pay" class="qr-code-img">
+        <p>Scan this QR code to pay using your UPI app</p>
+      </div>
+
+      <button type="button"  class="formbutton" onclick="showCardPaymentForm()">Credit/Debit Card</button>
+      <div id="card-payment-form" class="card-payment-form" style="display: none;" oninput="formatCardNumber(this)" >
+        <h2>Enter Card Details</h2>
+        <form id="cardForm" action="/process-card-payment" method="POST" onsubmit="return validateCardDetails()">
+          <input type="hidden" name="donationAmount" value="<%= donationAmount %>">
+
+            <div class="card-icons">
+              <i class="fab fa-cc-visa"></i>
+              <i class="fab fa-cc-mastercard"></i>
+              <i class="fab fa-cc-amex"></i>
+            </div>
+          <div class="form-group">
+              <label for="card-number">Card Number</label>
+              <input type="text" id="card-number" name="cardNumber" required placeholder="XXXX XXXX XXXX XXXX" maxlength="19" oninput="formatCardNumber(this)" >
+          </div>
+        
+          <div class="form-group">
+            <label for="expiry-date">Expiry Date</label>
+            <input type="text" id="expiry-date" name="expiryDate" required placeholder="MM/YY" maxlength="5">
+            <span id="expiry-date-error" class="error"></span>
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" name="cvv" required placeholder="XXX" maxlength="3">
+          </div>
+
+          <div class="form-group">
+            <label for="card-holder">Card Holder</label>
+            <input type="text" id="card-holder" name="cardHolder" required placeholder="Enter name on card">
+          </div>
+
+          <button type="submit" class="formbutton" >Pay ₹<%= donationAmount %></button>
+        </form> 
+
+      </div>
+    </section>
+  </div>
+<%- include('layout/footer')%>
+<!--<script>
+  function showQRCode() {
+    document.getElementById('qr-code').style.display = 'block';
+    document.getElementById('card-payment-form').style.display = 'none'; 
+  }
+
+  function showCardPaymentForm() {
+    document.getElementById('card-payment-form').style.display = 'block'; 
+    document.getElementById('qr-code').style.display = 'none'; 
+  }
+</script>
+<script>
+  function formatCardNumber(input) {
+    let value = input.value.replace(/\D/g, ''); 
+    value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+    input.value = value;
+  }
+
+  function validateCardDetails() {
+    const cardNumber = document.getElementById('card-number').value.trim();
+    const expiryDate = document.getElementById('expiry-date').value.trim();
+    const cvv = document.getElementById('cvv').value.trim();
+    const cardHolderName = document.getElementById('card-holder').value.trim();
+
+    let isValid = true;
+
+    document.getElementById('card-number-error').textContent = '';
+    document.getElementById('expiry-date-error').textContent = '';
+    document.getElementById('cvv-error').textContent = '';
+    document.getElementById('card-holder-error').textContent = '';
+
+    if (!validateCardNumber(cardNumber)) {
+      document.getElementById('card-number-error')
+      alert('Invalid card number. Please enter a valid one.');
+      isValid = false;
+    }
+
+    if (!validateExpiryDate(expiryDate)) {
+      document.getElementById('expiry-date-error')
+      alert('Invalid expiry date. Please enter in MM/YY format.');
+      isValid = false;
+    }
+
+    if (!/^\d{3}$/.test(cvv)) {
+      document.getElementById('cvv-error')
+      alert('Invalid CVV. It must be a 3-digit number.');
+      isValid = false;
+    }
+
+    if (!cardHolderName) {
+      document.getElementById('card-holder-error')
+      alert('Card holder name cannot be empty.');
+      isValid = false;
+    }
+    return isValid;
+  }
+
+  function validateCardNumber(cardNumber) {
+    const sanitized = cardNumber.replace(/\s+/g, ''); 
+    if (!/^\d{16}$/.test(sanitized)) return false; 
+
+    let sum = 0;
+    let shouldDouble = false;
+
+    for (let i = sanitized.length - 1; i >= 0; i--) {
+      let digit = parseInt(sanitized[i]);
+
+      if (shouldDouble) {
+        digit *= 2;
+        if (digit > 9) digit -= 9;
+      }
+
+      sum += digit;
+      shouldDouble = !shouldDouble;
+    }
+
+    return sum % 10 === 0;
+  }
+  
+  function validateExpiryDate(expiryDate) {
+
+    if (!/^\d{2}\/\d{2}$/.test(expiryDate)) return false; 
+
+    const [month, year] = expiryDate.split('/').map(Number);
+    if (month < 1 || month > 12) return false;
+
+    const currentYear = new Date().getFullYear() % 100; 
+    const currentMonth = new Date().getMonth() + 1;
+
+    if (year < currentYear || (year === currentYear && month < currentMonth)) {
+      
+      return false;
+    }
+
+    return true;
+  }
+
+</script>
+<script>
+  document.getElementById('cardForm').onsubmit = function (event) {
+    event.preventDefault(); 
+  
+    const formData = new FormData(this);
+    const donationAmount = formData.get('donationAmount'); 
+  
+    fetch('/process-card-payment', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert(`Card payment of ₹<%= donationAmount %> successful! Thank you for your donation.`); 
+      } else {
+        alert(data.message); 
+      }
+    })
+    .catch(error => {
+      alert('There was an error processing your payment. Please try again.');
+    });
+  };
+  </script> 
+
+<script>
+  // Show QR code for UPI payment
+  function showQRCode() {
+    document.getElementById('qr-code').style.display = 'block';
+    document.getElementById('card-payment-form').style.display = 'none';
+  }
+
+  // Show credit/debit card payment form
+  function showCardPaymentForm() {
+    document.getElementById('card-payment-form').style.display = 'block';
+    document.getElementById('qr-code').style.display = 'none';
+  }
+
+  // Format the card number input as the user types
+  function formatCardNumber(input) {
+    let value = input.value.replace(/\D/g, ''); // Remove non-numeric characters
+    value = value.replace(/(\d{4})(?=\d)/g, '$1 '); // Add spaces after every 4 digits
+    input.value = value;
+  }
+
+  // Validate the card details before form submission
+  function validateCardDetails() {
+    const cardNumber = document.getElementById('card-number').value.trim();
+    const expiryDate = document.getElementById('expiry-date').value.trim();
+    const cvv = document.getElementById('cvv').value.trim();
+    const cardHolderName = document.getElementById('card-holder').value.trim();
+
+    let isValid = true;
+
+    // Clear previous error messages
+    document.getElementById('card-number-error').textContent = '';
+    document.getElementById('expiry-date-error').textContent = '';
+    document.getElementById('cvv-error').textContent = '';
+    document.getElementById('card-holder-error').textContent = '';
+
+    // Validate card number
+    if (!validateCardNumber(cardNumber)) {
+      console.log('Invalid card number');
+      document.getElementById('card-number-error').textContent = 'Invalid card number. Please enter a valid one.';
+      isValid = false;
+    }
+
+    // Validate expiry date
+    if (!validateExpiryDate(expiryDate)) {
+      console.log('Invalid expiry date');
+      document.getElementById('expiry-date-error').textContent = 'Invalid expiry date. Please enter in MM/YY format.';
+      isValid = false;
+    }
+
+    // Validate CVV (must be a 3-digit number)
+    if (!/^\d{3}$/.test(cvv)) {
+      console.log('Invalid CVV');
+      document.getElementById('cvv-error').textContent = 'Invalid CVV. It must be a 3-digit number.';
+      isValid = false;
+    }
+
+    // Validate cardholder name (cannot be empty)
+    if (!cardHolderName) {
+      console.log('Card holder name missing');
+      document.getElementById('card-holder-error').textContent = 'Card holder name cannot be empty.';
+      isValid = false;
+    }
+
+    // If any validation failed, return false to prevent form submission
+    if (!isValid) {
+      alert('Form is invalid. Check the errors.');
+      return false;
+    }
+
+    console.log('Form is valid, proceeding to submit');
+    alert('Form is valid. Submitting...');
+    return true;
+  }
+
+  // Validate card number using Luhn algorithm (mod 10)
+  function validateCardNumber(cardNumber) {
+    const sanitized = cardNumber.replace(/\s+/g, ''); // Remove spaces
+    if (!/^\d{16}$/.test(sanitized)) return false; // Card number must be exactly 16 digits
+
+    let sum = 0;
+    let shouldDouble = false;
+
+    for (let i = sanitized.length - 1; i >= 0; i--) {
+      let digit = parseInt(sanitized[i]);
+
+      if (shouldDouble) {
+        digit *= 2;
+        if (digit > 9) digit -= 9;
+      }
+
+      sum += digit;
+      shouldDouble = !shouldDouble;
+    }
+
+    return sum % 10 === 0; // Valid if sum is divisible by 10
+  }
+
+  // Validate expiry date in MM/YY format and check if the date is not expired
+  function validateExpiryDate(expiryDate) {
+    if (!/^\d{2}\/\d{2}$/.test(expiryDate)) return false; // Expiry date must be in MM/YY format
+
+    const [month, year] = expiryDate.split('/').map(Number);
+    if (month < 1 || month > 12) return false; // Month must be between 1 and 12
+
+    const currentYear = new Date().getFullYear() % 100; // Get last two digits of the current year
+    const currentMonth = new Date().getMonth() + 1; // Get current month (1-12)
+
+    if (year < currentYear || (year === currentYear && month < currentMonth)) {
+      console.log('Expired card');
+      return false; // Card has expired
+    }
+
+    return true;
+  }
+
+  // Handle form submission
+  document.getElementById('cardForm').onsubmit = function (event) {
+    event.preventDefault(); // Prevent form submission
+  
+    const formData = new FormData(this);
+    const donationAmount = formData.get('donationAmount'); // Get donation amount from hidden input field
+  
+    fetch('/process-card-payment', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert(`Card payment of ₹${donationAmount} successful! Thank you for your donation.`);
+      } else {
+        alert(data.message);
+      }
+    })
+    .catch(error => {
+      alert('There was an error processing your payment. Please try again.');
+    });
+  };
+</script> -->
+<script>
+  // Show QR code for UPI payment
+  function showQRCode() {
+    document.getElementById('qr-code').style.display = 'block';
+    document.getElementById('card-payment-form').style.display = 'none';
+  }
+
+  // Show credit/debit card payment form
+  function showCardPaymentForm() {
+    document.getElementById('card-payment-form').style.display = 'block';
+    document.getElementById('qr-code').style.display = 'none';
+  }
+
+  // Format the card number input as the user types
+  function formatCardNumber(input) {
+    let value = input.value.replace(/\D/g, ''); // Remove non-numeric characters
+    value = value.replace(/(\d{4})(?=\d)/g, '$1 '); // Add spaces after every 4 digits
+    input.value = value;
+  }
+
+  // Validate the card details before form submission
+  function validateCardDetails() {
+    const cardNumber = document.getElementById('card-number').value.trim();
+    const expiryDate = document.getElementById('expiry-date').value.trim();
+    const cvv = document.getElementById('cvv').value.trim();
+    const cardHolderName = document.getElementById('card-holder').value.trim();
+
+    let isValid = true;
+
+    // Validate card number
+    if (!validateCardNumber(cardNumber)) {
+      alert('Invalid card number. Please enter a valid one.');
+      isValid = false;
+    }
+
+    // Validate expiry date
+    if (!validateExpiryDate(expiryDate)) {
+      alert('Invalid expiry date. Please enter in MM/YY format.');
+      isValid = false;
+    }
+
+    // Validate CVV (must be a 3-digit number)
+    if (!/^\d{3}$/.test(cvv)) {
+      alert('Invalid CVV. It must be a 3-digit number.');
+      isValid = false;
+    }
+
+    // Validate cardholder name (cannot be empty)
+    if (!cardHolderName) {
+      alert('Card holder name cannot be empty.');
+      isValid = false;
+    }
+
+    // If any validation failed, return false to prevent form submission
+    if (!isValid) {
+      return false; // Prevent form submission
+    }
+
+    return true; // Proceed with form submission if all validations pass
+  }
+
+  // Validate card number using Luhn algorithm (mod 10)
+  function validateCardNumber(cardNumber) {
+    const sanitized = cardNumber.replace(/\s+/g, ''); // Remove spaces
+    if (!/^\d{16}$/.test(sanitized)) return false; // Card number must be exactly 16 digits
+
+    let sum = 0;
+    let shouldDouble = false;
+
+    for (let i = sanitized.length - 1; i >= 0; i--) {
+      let digit = parseInt(sanitized[i]);
+
+      if (shouldDouble) {
+        digit *= 2;
+        if (digit > 9) digit -= 9;
+      }
+
+      sum += digit;
+      shouldDouble = !shouldDouble;
+    }
+
+    return sum % 10 === 0; // Valid if sum is divisible by 10
+  }
+
+  // Validate expiry date in MM/YY format and check if the date is not expired
+  function validateExpiryDate(expiryDate) {
+    if (!/^\d{2}\/\d{2}$/.test(expiryDate)) return false; // Expiry date must be in MM/YY format
+
+    const [month, year] = expiryDate.split('/').map(Number);
+    if (month < 1 || month > 12) return false; // Month must be between 1 and 12
+
+    const currentYear = new Date().getFullYear() % 100; // Get last two digits of the current year
+    const currentMonth = new Date().getMonth() + 1; // Get current month (1-12)
+
+    if (year < currentYear || (year === currentYear && month < currentMonth)) {
+      console.log('Expired card');
+      return false; // Card has expired
+    }
+
+    return true;
+  }
+
+  // Handle form submission
+  document.getElementById('cardForm').onsubmit = function (event) {
+    event.preventDefault(); // Prevent form submission
+
+    // Validate card details first
+    if (!validateCardDetails()) {
+      return false; // Don't submit the form if validation fails
+    }
+
+    const formData = new FormData(this);
+    const donationAmount = formData.get('donationAmount'); // Get donation amount from hidden input field
+  
+    fetch('/process-card-payment', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert(`Card payment of ₹${donationAmount} successful! Thank you for your donation.`);
+        location.reload();
+      } else {
+        alert(data.message);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('There was an error processing your payment. Please try again.');
+    });
+  };
+</script>
+
+
